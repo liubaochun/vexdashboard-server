@@ -1,0 +1,9 @@
+.idea
+*.iml
+*.log*
+logback.xml
+target
+acds.properties
+acds-ui.properties
+dev-proxies.json
+.DS_Store
