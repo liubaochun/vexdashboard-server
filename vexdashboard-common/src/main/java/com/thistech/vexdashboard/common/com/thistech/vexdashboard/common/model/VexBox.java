@@ -51,6 +51,10 @@ public class VexBox extends BaseMongoPersistent<VexBox> implements Serializable 
     @JsonProperty("thresholds")
     private List<Threshold> thresholds;
 
+    public VexBox() {
+
+    }
+
     public String getIpAddress() {
         return ipAddress;
     }

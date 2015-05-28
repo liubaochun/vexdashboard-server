@@ -21,6 +21,10 @@ public class Threshold {
     @XmlAttribute(required = true)
     private float value;
 
+    public Threshold() {
+
+    }
+
     public MetricType getType() {
         return type;
     }
