@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<enunciate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://enunciate.codehaus.org/schemas/enunciate-1.26.xsd"
+        label="acs" excludeUnreferencedClasses="true">
+
+    <api-classes>
+        <include pattern="com.thistech.vexdashboard.service.VexBoxService"/>
+
+    </api-classes>
+
+    <api-import pattern="com.thistech.vexdashboard.common.model.**"/>
+    <api-import pattern="com.thistech.vexdashboard.common.service.**"/>
+    <api-import pattern="com.thistech.common.esam.**"/>
+    <api-import pattern="com.thistech.common.esni.*"/>
+    <api-import pattern="com.thistech.common.mongo.model.BaseMongoPersistent*"/>
+
+    <namespaces>
+        <namespace uri="http://www.thistech.com/schemas/common/1" id="this"/>
+        <namespace uri="http://www.thistech.com/schemas/vexdashboard/1" id="vexdashboard"/>
+        <namespace uri="http://www.thistech.com/schemas/vinz/1" id="vinz"/>
+        <namespace uri="urn:cablelabs:md:xsd:core:3.0" id="adi3"/>
+        <namespace uri="urn:cablelabs:md:xsd:content:3.0" id="content"/>
+        <namespace uri="urn:cablelabs:md:xsd:offer:3.0" id="offer"/>
+        <namespace uri="urn:cablelabs:md:xsd:placementopportunity:3.0" id="adi3po"/>
+        <namespace uri="urn:cablelabs:md:xsd:signaling:3.0" id="signaling"/>
+        <namespace uri="urn:cablelabs:md:xsd:title:3.0" id="title"/>
+        <namespace uri="urn:cablelabs:iptvservices:esam:xsd:manifest:1" id="manifest"/>
+        <namespace uri="urn:cablelabs:iptvservices:esam:xsd:signal:1" id="signal"/>
+        <namespace uri="urn:cablelabs:iptvservices:esam:xsd:common:1" id="common"/>
+        <namespace uri="urn:cablelabs:iptvservices:esni:xsd:2" id="esni"/>
+    </namespaces>
+
+    <modules>
+        <docs copyright="THIS TECHNOLOGY, Inc."
+                disableRestMountpoint="true"
+                docsDir="docs"
+                freemarkerXMLProcessingTemplate="enunciate.ftl"
+                includeDefaultDownloads="false"
+                includeExampleJson="true"
+                includeExampleXml="true"
+                title="Vex Dashboard Service API">
+            <additional-css file="enunciate.css"/>
+        </docs>
+        <basic-app disabled="true"/>
+        <c disabled="true" />
+        <csharp disabled="true" />
+        <cxf disabled="true"/>
+        <java-client disabled="true" />
+        <jaxws-ri disabled="true" />
+        <jaxws-support disabled="true" />
+        <jersey disabled="true" />
+        <obj-c disabled="true" />
+        <spring-app disabled="true"/>
+        <xml disabled="true" />
+    </modules>
+</enunciate>
