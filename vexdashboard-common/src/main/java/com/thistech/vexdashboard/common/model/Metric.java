@@ -1,4 +1,4 @@
-package com.thistech.vexdashboard.common.com.thistech.vexdashboard.common.model;
+package com.thistech.vexdashboard.common.model;
 
 import com.sun.istack.NotNull;
 import com.thistech.vexdashboard.common.util.VexDashboardUtil;
@@ -7,11 +7,13 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 
-@XmlType(name = "Threshold", namespace = VexDashboardUtil.VEXDASHBOARD_NAMESPACE)
+@XmlType(name = "Metric", namespace = VexDashboardUtil.VEXDASHBOARD_NAMESPACE)
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Threshold {
+public class Metric implements Serializable{
     private static final long serialVersionUID = 1L;
+    public static final String CACHE_NAME = "Metric";
 
     @NotNull
     @XmlAttribute(required = true)
@@ -21,15 +23,11 @@ public class Threshold {
     @XmlAttribute(required = true)
     private float value;
 
-    public Threshold() {
-
-    }
-
     public MetricType getType() {
         return type;
     }
 
-    public Threshold setType(MetricType type) {
+    public Metric setType(MetricType type) {
         this.type = type;
         return this;
     }
@@ -38,7 +36,7 @@ public class Threshold {
         return value;
     }
 
-    public Threshold setValue(float value) {
+    public Metric setValue(float value) {
         this.value = value;
         return this;
     }

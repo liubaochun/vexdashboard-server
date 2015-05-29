@@ -1,13 +1,6 @@
 package com.thistech.vexdashboard.common.model;
 
 import com.thistech.common.cxf.ThisObjectMapper;
-import com.thistech.vexdashboard.common.com.thistech.vexdashboard.common.model.ApplicationType;
-import com.thistech.vexdashboard.common.com.thistech.vexdashboard.common.model.MetricType;
-import com.thistech.vexdashboard.common.com.thistech.vexdashboard.common.model.Threshold;
-import com.thistech.vexdashboard.common.com.thistech.vexdashboard.common.model.VexBox;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.DateTimeFormatterBuilder;
 import org.testng.annotations.Test;
 
 import java.io.StringWriter;

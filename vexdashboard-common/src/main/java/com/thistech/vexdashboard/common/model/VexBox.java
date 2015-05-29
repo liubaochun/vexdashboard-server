@@ -1,4 +1,4 @@
-package com.thistech.vexdashboard.common.com.thistech.vexdashboard.common.model;
+package com.thistech.vexdashboard.common.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.thistech.vexdashboard.common.util.VexDashboardUtil;
@@ -16,7 +16,7 @@ import java.util.List;
 @Document(collection = "VexBox")
 @XmlType(name="VexBox", namespace = VexDashboardUtil.VEXDASHBOARD_NAMESPACE)
 @XmlAccessorType(XmlAccessType.FIELD)
-public class VexBox extends BaseMongoPersistent<VexBox> implements Serializable {
+public class VexBox extends AbstractVexdashboardPersistent<VexBox> implements Serializable {
     private static final long serialVersionUID = 1L;
     public static final String CACHE_NAME = "VexBox";
 
