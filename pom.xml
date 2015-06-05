@@ -15,6 +15,7 @@
     <modules>
         <module>vexdashboard-common</module>
         <module>vexdashboard</module>
+        <module>vexdashboard-ui</module>
     </modules>
 
     <scm>
@@ -143,6 +144,11 @@
                 <version>${fiftyone.version}</version>
             </dependency>
             -->
+            <dependency>
+                <groupId>org.tuckey</groupId>
+                <artifactId>urlrewritefilter</artifactId>
+                <version>4.0.3</version>
+            </dependency>
             <dependency>
                 <groupId>com.51degrees</groupId>
                 <artifactId>51Degrees.detection.core</artifactId>

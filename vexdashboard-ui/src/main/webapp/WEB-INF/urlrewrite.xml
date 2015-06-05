@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+        "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
+
+<urlrewrite>
+    <rule>
+        <from>^/app/status$</from>
+        <to>/cxf/app/status</to>
+    </rule>
+    <rule>
+        <from>^/data/configuration.json$</from>
+        <to>/cxf/config</to>
+    </rule>
+<!-- redirect requires the %{context-path} to be specified in the destination:
+    <rule>
+        <from>^/scripts/configuration.json$</from>
+        <to type="redirect">%{context-path}/cxf/config</to>
+    </rule>
+-->
+</urlrewrite>

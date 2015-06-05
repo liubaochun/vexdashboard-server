@@ -12,10 +12,7 @@ public class VexDashboardUtil {
 
     public static final String VEXDASHBOARD_NAMESPACE = "http://www.thistech.com/schemas/vexdashboard/1";
     private static final String[] JAXB_PACKAGES = new String[] {
-            "com.thistech.common.esni",
-            "com.thistech.common.esam.i03",
-            "com.thistech.vexdashboard.common.model",
-            "com.thistech.common.util"
+            "com.thistech.vexdashboard.common.model"
     };
 
     public static final JAXBContext VEXDASHBOARD_JAXB_CONTEXT = XmlUtil.newJaxbContext(JAXB_PACKAGES);

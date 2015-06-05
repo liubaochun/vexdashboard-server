@@ -4,10 +4,7 @@ import com.thistech.common.util.Page;
 import com.thistech.vexdashboard.common.model.ApplicationType;
 import com.thistech.vexdashboard.common.model.VexBox;
 import com.thistech.vexdashboard.repository.VexboxRepository;
-import com.thistech.vinz.common.model.AccessCondition;
-import com.thistech.vinz.common.model.Authorize;
-import com.thistech.vinz.common.model.Identity;
-import com.thistech.vinz.common.model.Organization;
+import com.thistech.vinz.common.model.*;
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.enunciate.jaxrs.ResponseCode;
 import org.codehaus.enunciate.jaxrs.StatusCodes;
@@ -49,19 +46,11 @@ public class VexBoxService extends AbstractCrudService<VexBox>{
      * @return This operation returns a page of Networks.
      */
     @GET
-    @Authorize(AccessCondition.ACS_NETWORK_READ)
+    //@Authorize(AccessCondition.ACS_NETWORK_READ)
     @StatusCodes({ @ResponseCode(code = 200, condition = "OK."), @ResponseCode(code = 403, condition = "Identity is not authorized to view the Networks.") })
-    public Page<VexBox> find(@QueryParam("o") final String organizationId, @QueryParam("q") final String query, @QueryParam("s") @DefaultValue("name") final String sortProperty, @QueryParam("d") @DefaultValue("false") final boolean isDesc, @QueryParam("i") @DefaultValue("0") final int pageIndex, @QueryParam("n") @DefaultValue("20") final int pageSize) {
-        final Identity current = currentIdentity();
-        final Page<VexBox> page =null;
-        Set<String> organizationIds;
-        if (organizationId == null) {
-            organizationIds = current.getOrganizationIds();
-        } else {
-            organizationIds = new HashSet(Arrays.asList(normalizeOrganizationId(organizationId)));
-        }
-
-        //page = vexboxRepository.find(organizationIds, networkIds, query, sortProperty, isDesc, pageIndex, pageSize);
+    public Page<VexBox> find(@QueryParam("o") final String organizationId, @QueryParam("q") final String query, @QueryParam("s") @DefaultValue("applicationType") final String sortProperty, @QueryParam("d") @DefaultValue("false") final boolean isDesc, @QueryParam("i") @DefaultValue("0") final int pageIndex, @QueryParam("n") @DefaultValue("20") final int pageSize) {
+        Page<VexBox> page = null;
+        page = vexboxRepository.find(query, sortProperty, isDesc, pageIndex, pageSize);
         return page;
     }
 
@@ -73,12 +62,13 @@ public class VexBoxService extends AbstractCrudService<VexBox>{
      */
     @GET
     @Path("{id}")
-    @Authorize(AccessCondition.METAMORE_NETWORK_FEED_READ)
+    //@Authorize(AccessCondition.METAMORE_NETWORK_FEED_READ)
     @StatusCodes({ @ResponseCode(code = 200, condition = "OK."), @ResponseCode(code = 404, condition = "The NetworkFeed does not exist or is not visible to the organization provided.")})
-    public VexBox findOne(@PathParam("id") String id, @QueryParam("o") final String organizationId) {
-        Organization organization = getOrganization(organizationId);
+    public VexBox findOne(@PathParam("id") String id) {
+        //Organization organization = getOrganization(organizationId);
         VexBox vexBox = vexboxRepository.findOne(id);
-        if (vexBox != null && StringUtils.equals(organization.getId(), vexBox.getOrganizationId())) {
+        //if (vexBox != null && StringUtils.equals(organization.getId(), vexBox.getOrganizationId())) {
+        if (vexBox != null) {
             return vexBox;
         } else {
             return null;
@@ -88,7 +78,7 @@ public class VexBoxService extends AbstractCrudService<VexBox>{
 
     @GET
     @Path("/application/{applicationType}")
-    @Authorize(AccessCondition.METAMORE_NETWORK_FEED_READ)
+    //@Authorize(AccessCondition.METAMORE_NETWORK_FEED_READ)
     @StatusCodes({@ResponseCode(code = 200, condition = "OK."), @ResponseCode(code = 401, condition = "Identity is not authorized to view this AcquisitionSystemProfile."), @ResponseCode(code = 404, condition = "No AcquisitionSystemProfile was found for the given id.")})
     public Page<VexBox> find(@PathParam("applicationType") ApplicationType applicationType) {
         return null;
@@ -101,7 +91,7 @@ public class VexBoxService extends AbstractCrudService<VexBox>{
      */
     @Override
     @POST
-    @Authorize(AccessCondition.ACS_NETWORK_MANAGE)
+    //@Authorize(AccessCondition.ACS_NETWORK_MANAGE)
     @StatusCodes({ @ResponseCode(code = 200, condition = "OK."), @ResponseCode(code = 400, condition = "Bad Request"), @ResponseCode(code = 403, condition = "Identity is not authorized to save a Network"), @ResponseCode(code = 409, condition = "A unique constraint was violated.")})
     public VexBox save(final VexBox vexBox) {
         VexBox v =  super.save(vexBox);

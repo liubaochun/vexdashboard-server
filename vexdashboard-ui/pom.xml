@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.thistech</groupId>
+        <artifactId>vexdashboard-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>vexdashboard-ui</artifactId>
+    <packaging>war</packaging>
+    <name>VexDashboard - UI</name>
+
+    <properties>
+        <cors-filter.version>1.0.0</cors-filter.version>
+        <grunt-plugin.version>1.0.3</grunt-plugin.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.ebaysf.web</groupId>
+            <artifactId>cors-filter</artifactId>
+            <version>${cors-filter.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.thistech</groupId>
+            <artifactId>thistech-common-utils</artifactId>
+        </dependency>
+        <!--This is required by the OPLog module defined in logback.xml-->
+        <dependency>
+            <groupId>com.thistech</groupId>
+            <artifactId>thistech-common-mongo</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.tuckey</groupId>
+            <artifactId>urlrewritefilter</artifactId>
+            <version>4.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.thistech</groupId>
+            <artifactId>thistech-common-cxf</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.google.code.sortpom</groupId>
+                <artifactId>maven-sortpom-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>wagon-maven-plugin</artifactId>
+                <version>1.0-beta-5</version>
+                <executions>
+                    <execution>
+                        <id>upload-war-to-server</id>
+                        <phase>${scpPhase}</phase>
+                        <goals>
+                            <goal>upload-single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <serverId>thistech-yum</serverId>
+                    <fromFile>${project.build.directory}/rpm/${project.artifactId}/RPMS/noarch/${project.build.finalName}-1.noarch.rpm</fromFile>
+                    <url>scp://54.225.204.100/opt/repo/${specBuild}</url>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

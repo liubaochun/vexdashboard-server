@@ -9,6 +9,7 @@ import com.thistech.common.cxf.mapper.DuplicateEntityExceptionMapper;
 import com.thistech.vexdashboard.common.util.VexDashboardUtil;
 import com.thistech.vexdashboard.service.TestService;
 import com.thistech.vexdashboard.cxf.HttpRequestFilter;
+import com.thistech.vexdashboard.service.VexBoxService;
 import com.thistech.vinz.common.cxf.MockVinzFilter;
 import com.thistech.vinz.common.cxf.VinzFilter;
 import com.thistech.vinz.common.model.AccessCondition;
@@ -48,6 +49,8 @@ public class CxfConfig {
 
     @Resource
     private TestService testService;
+    @Resource
+    private VexBoxService vexBoxService;
 
 
     @Value("${testing:false}")
@@ -75,6 +78,7 @@ public class CxfConfig {
         if (testing) {
             serviceBeans.add(testService);
         }
+        serviceBeans.add(vexBoxService);
 
         JAXRSServerFactoryBean factoryBean = new JAXRSServerFactoryBean();
         factoryBean.setAddress("");
@@ -87,8 +91,8 @@ public class CxfConfig {
         factoryBean.setExtensionMappings(extMappings);
 
         factoryBean.setProviders(Arrays.asList(
-                createAuthToHeaderFilter(),
-                createVinzFilter(),
+                //createAuthToHeaderFilter(),
+                //createVinzFilter(),
                 new HttpRequestFilter(),
                 new AcceptRequestHandler(),
                 new ApplicationExceptionMapper(),

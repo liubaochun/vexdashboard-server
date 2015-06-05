@@ -1,0 +1,15 @@
+{
+  "modules": ["vexdashboard"],
+  "vinzProxyAddress": "/vexdashboard-ui/vinz",
+  "oplogProxyAddress": "/oplog",
+  "authCrossOriginWhitelist": [
+    "http://localhost:9000",
+    "http://localhost:8080",
+    "http://localhost:8071",
+    "http://localhost:8081",
+    "http://localhost:8091"
+  ],
+  "projectVersion": "0.0.1-SNAPSHOT",
+  "buildDate": "20140401-0000",
+  "buildRevision": "abacabb"
+}

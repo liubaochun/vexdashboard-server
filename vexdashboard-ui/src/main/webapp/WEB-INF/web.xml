@@ -1,0 +1,84 @@
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         version="2.4">
+    <display-name>Vexdashboard</display-name>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:context.xml</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <filter>
+        <filter-name>CORS Filter</filter-name>
+        <filter-class>org.ebaysf.web.cors.CORSFilter</filter-class>
+        <init-param>
+            <param-name>cors.allowed.origins</param-name>
+            <param-value>*</param-value>
+        </init-param>
+        <init-param>
+            <param-name>cors.allowed.headers</param-name>
+            <param-value>Origin,Accept,Authorization,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers</param-value>
+        </init-param>
+        <init-param>
+            <param-name>cors.support.credentials</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CORS Filter</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>cxf</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>vexdashboardProxy</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>vinzProxy</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>vexdashboardProxy</servlet-name>
+        <url-pattern>/api/vexdashboard/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>vinzProxy</servlet-name>
+        <url-pattern>/vinz/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>cxf</servlet-name>
+        <!-- NOTE: mapping cxf as the default servlet (ie., /*) interferes with appending a slash(/) to the url
+             which breaks serving the welcom-file unless the url ends with slash(/). Urls can be redirected
+             quitely to /cxf using urlrewrite.xml (see UrlRewriteFilter).
+        -->
+        <url-pattern>/cxf/*</url-pattern>
+    </servlet-mapping>
+
+    <env-entry>
+        <env-entry-name>appName</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>vexdashboard-ui</env-entry-value>
+    </env-entry>
+</web-app>

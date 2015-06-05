@@ -1,0 +1,14 @@
+{
+  "groupId": "org.example.com",
+  "artifactId": "{{name}}",
+  "fileName": "{{name}}",
+  "type": "zip",
+  "fileEncoding": "utf-8",
+  "repositories": [
+    {
+      "id": "example-internal-snapshot",
+      "url": "http://mavenproxy.example.com/example-internal-snapshot/",
+      "snapshot": true
+    }
+  ]
+}
