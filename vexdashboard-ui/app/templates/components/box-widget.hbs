@@ -1,5 +1,5 @@
 <div {{bind-attr class=":box-header background::with-border"}} {{action 'toggleCollapse'}}>
-    <h3 class="box-title">{{#if title}}{{{title}}}{{/if}} </h3>
+    <h3 class="box-title">{{applicationType vexbox.applicationType}}</h3>
     <div class="box-tools pull-right">
         {{#if label}}
             <span {{bind-attr class=":label labelClass"}}>
@@ -28,10 +28,10 @@
 <div {{bind-attr class=":box-body bodyClass"}} {{action 'toggleCollapse'}}>
     <div class="media">
         <div class="media-body">
-            IP  Address: <code>192.168.202.1</code><br>
+            IP  Address: <code>{{vexbox.ipaddress}}</code><br>
             CPU Usage&nbsp;&nbsp;: <code>23%</code><br>
             MEM Usage&nbsp;&nbsp;: <code>42%</code><br>
-            Version&nbsp;&nbsp;&nbsp;&nbsp;: <code>2.3.0-RC1</code><br>
+            Version&nbsp;&nbsp;&nbsp;&nbsp;: <code>{{vexbox.applicatonVersion}}</code><br>
         </div>
         <div class="media-right">
             <a href="#">

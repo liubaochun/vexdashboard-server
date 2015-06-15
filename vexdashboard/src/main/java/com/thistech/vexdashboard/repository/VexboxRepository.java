@@ -37,4 +37,22 @@ public class VexboxRepository extends AbstractVexdashboardRepository<VexBox>{
         return findPage(criteria, StringUtils.defaultIfEmpty(sortProperty, "applicationType"), isDesc, pageIndex, pageSize);
     }
 
+    public Page<VexBox> findByApptypeAndIp(final String applicaitonType,  final String ipAddress, final String sortProperty, final boolean isDesc, final int pageIndex, final int pageSize) {
+        final Criteria criteria = createCriteria();
+        Criteria[] searchCriteria = null;
+        if (StringUtils.isNotBlank(applicaitonType) && StringUtils.isNotBlank(ipAddress)) {
+            searchCriteria = new Criteria[] {where("applicationType").is(applicaitonType), where("ipAddress").regex(ipAddress)};
+        } else if (StringUtils.isNotBlank(applicaitonType) && StringUtils.isBlank(ipAddress)) {
+            searchCriteria = new Criteria[] {where("applicationType").is(applicaitonType)};
+        } else if (StringUtils.isBlank(applicaitonType) && StringUtils.isNotBlank(ipAddress)) {
+            searchCriteria = new Criteria[] {where("ipAddress").regex(toRegex(ipAddress), "i")};
+        }
+
+        if (searchCriteria != null) {
+            criteria.andOperator(searchCriteria);
+        }
+
+        return findPage(criteria, StringUtils.defaultIfEmpty(sortProperty, "applicationType"), isDesc, pageIndex, pageSize);
+    }
+
 }

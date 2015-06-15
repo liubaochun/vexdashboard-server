@@ -6,5 +6,11 @@ var Router = Ember.Router.extend({
 });
 
 export default Router.map(function() {
-    this.route('index', {path:'/'});
+  this.route('index', {path:'/'});
+  this.resource('vexboxs', {path: '/vexboxs'}, function() {
+        this.route('query');
+    });
+  this.route('Pagination');
+  this.route('VexdashboardPagination');
+  this.route('PaginationBase');
 });

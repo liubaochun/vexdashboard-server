@@ -38,7 +38,8 @@ public class VexBoxService extends AbstractCrudService<VexBox>{
     /**
      * This operation retrieves a page of VexBox.
      * @param organizationId The organization's ID or DMR ID.
-     * @param query The query string.
+     * @param currentApplicationType The ApplicationType.
+     * @param ipAddress The IP address regex.
      * @param sortProperty The sort property (e.g., 'name').
      * @param isDesc If true and sort property is not blank, will sort in descending order.
      * @param pageIndex The page index.
@@ -48,16 +49,26 @@ public class VexBoxService extends AbstractCrudService<VexBox>{
     @GET
     //@Authorize(AccessCondition.ACS_NETWORK_READ)
     @StatusCodes({ @ResponseCode(code = 200, condition = "OK."), @ResponseCode(code = 403, condition = "Identity is not authorized to view the Networks.") })
-    public Page<VexBox> find(@QueryParam("o") final String organizationId, @QueryParam("q") final String query, @QueryParam("s") @DefaultValue("applicationType") final String sortProperty, @QueryParam("d") @DefaultValue("false") final boolean isDesc, @QueryParam("i") @DefaultValue("0") final int pageIndex, @QueryParam("n") @DefaultValue("20") final int pageSize) {
+    public Page<VexBox> find(@QueryParam("o") final String organizationId,
+                             @QueryParam("currentApplicationType") final String currentApplicationType,
+                             @QueryParam("ip") final String ipAddress,
+                             @QueryParam("s") @DefaultValue("applicationType") final String sortProperty,
+                             @QueryParam("d") @DefaultValue("false") final boolean isDesc,
+                             @QueryParam("i") @DefaultValue("0") final int pageIndex,
+                             @QueryParam("n") @DefaultValue("20") final int pageSize) {
         Page<VexBox> page = null;
-        page = vexboxRepository.find(query, sortProperty, isDesc, pageIndex, pageSize);
+        page = vexboxRepository.findByApptypeAndIp(currentApplicationType, ipAddress, sortProperty, isDesc, pageIndex, pageSize);
         return page;
     }
 
+    public Page<VexBox> find(String organizationId, String query, String sortProperty, boolean isDesc, int pageIndex, int pageSize) {
+        return null;
+    }
+
+
     /**
      * This operation retrieves a VexBox by Id and Organization Id
-     * @param id The Id of VexBox.
-     * @param organizationId The organization's ID
+     * @param id The Id of VexBox
      * @return This Operation returns a VexBox.
      */
     @GET

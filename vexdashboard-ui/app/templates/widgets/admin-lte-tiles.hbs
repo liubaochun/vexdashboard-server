@@ -1,8 +1,55 @@
 {{! This file is a modification of html from https://github.com/almasaeed2010/AdminLTE}}
+<form class="form-horizontal" {{action "ipChanged" on="submit"}} >
 <h4 class="page-header">
      VEX Boxes
     <small>VEX include Core Vex, Vex-frontend, Vex-director components.</small>
 </h4>
+<div class="form-group">
+	<label class="col-sm-2 control-label">Application Types:</label>
+	<div class="col-sm-9">
+		<div class="display:inline">
+			<div class="form-group">
+			    <div {{bind-attr class=":col-sm-3 validationError:has-error"}}>
+			        {{
+			        view "select"
+			        content=applicationTypes
+			        optionLabelPath="content.displayLabel"
+			        optionValuePath="content.type"
+			        value=currentApplicationType
+			        prompt="Choose One Application Type" class="form-control"
+			        }}
+			    </div>
+				<label class="col-sm-2 control-label">IP Address:</label>
+			    <div class="col-sm-3">
+			        {{input type="text" placeholder="IP Address" value=ipAddress  insert-newline="ipChanged" class="form-control"}}
+			    </div>    
+			</div>
+		</div>
+	</div>
+</div>
+{{#if table}}
+	{{#each row in table}}
+	<div class="row">
+		{{#each cell in row}}
+			{{#if cell}}
+				<div class="col-md-3">
+			        <!-- Primary tile -->
+			        {{#box-widget
+			        background= "light-blue"
+			        closable = false
+			        collapsable = false
+			        showModal = "displayModal"
+					vexbox = cell
+			        }}
+			        {{/box-widget}}
+			    </div><!-- /.col -->
+			{{/if}}
+		{{/each}}
+	</div>
+	{{/each}}
+{{else}}	
+
+{{/if}}
 <!-- Solid boxes -->
 <div class="row">
 
@@ -177,3 +224,4 @@
     </div><!-- /.col -->
 
 </div><!-- /.row -->
+</form>

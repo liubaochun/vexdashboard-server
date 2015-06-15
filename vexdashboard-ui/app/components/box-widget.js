@@ -11,6 +11,8 @@ export default Ember.Component.extend({
     colorSceme: null,
     buttons: false,
 
+	vexbox: null,
+
     classNames: ['box'],
     classNameBindings: ['boxClass','backgroundClass','solid:box-solid'],
 
@@ -18,6 +20,20 @@ export default Ember.Component.extend({
      **	External states
      ****************************/
     isLoading : false,
+
+	init:function(){
+		this._super();
+		var vexbox = this.get('vexbox');
+        if (vexbox) {
+			if (vexbox.applicationType === 'COREVEX') {
+				this.set('title', 'VEX CORE');
+			} else if (vexbox.applicationType === 'DIRECTOR') {
+				this.set('title', 'VEX DIRECTOR');
+			} else if (vexbox.applicationType === 'FRONTEND') {
+				this.set('title', 'VEX FRONTEND');
+			}
+		}
+    },
 
     /***************************
      **	Computed states
