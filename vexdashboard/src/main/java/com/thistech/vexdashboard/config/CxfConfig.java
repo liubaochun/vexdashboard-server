@@ -7,6 +7,7 @@ import com.thistech.common.cxf.mapper.ApplicationExceptionMapper;
 import com.thistech.common.cxf.mapper.ConstraintViolationExceptionMapper;
 import com.thistech.common.cxf.mapper.DuplicateEntityExceptionMapper;
 import com.thistech.vexdashboard.common.util.VexDashboardUtil;
+import com.thistech.vexdashboard.service.BoxStatusService;
 import com.thistech.vexdashboard.service.TestService;
 import com.thistech.vexdashboard.cxf.HttpRequestFilter;
 import com.thistech.vexdashboard.service.VexBoxService;
@@ -51,6 +52,8 @@ public class CxfConfig {
     private TestService testService;
     @Resource
     private VexBoxService vexBoxService;
+    @Resource
+    private BoxStatusService boxStatusService;
 
 
     @Value("${testing:false}")
@@ -79,6 +82,7 @@ public class CxfConfig {
             serviceBeans.add(testService);
         }
         serviceBeans.add(vexBoxService);
+        serviceBeans.add(boxStatusService);
 
         JAXRSServerFactoryBean factoryBean = new JAXRSServerFactoryBean();
         factoryBean.setAddress("");

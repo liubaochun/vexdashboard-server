@@ -11,6 +11,7 @@ export default PaginationBaseController.extend({
 	currentApplicationType: null,
 	ip: "",
 	ipAddress: "",
+	socket: null,
 	
 	init: function() {
 	    this._super.apply(this, arguments);
@@ -21,7 +22,7 @@ export default PaginationBaseController.extend({
 	    * will create a new one for us.
 	    */
 	    var socket = this.get('socketService').socketFor('ws://localhost:8080/vexdashboard/websocket/echoAnnotation');
-
+		console.log('222222');
 	    /*
 	    * 3) The final step is to define your event handlers. All event handlers
 	    * are added via the `on` method and take 3 arguments: event name, callback
@@ -33,6 +34,7 @@ export default PaginationBaseController.extend({
 	    socket.on('close', function(event) {
 	      // anonymous functions work as well
 	    }, this);
+		console.log('333333');
 	  },
 	myOpenHandler: function(event) {
 	    console.log('On open event has been called: ' + event);
@@ -47,6 +49,35 @@ export default PaginationBaseController.extend({
 			this.resetPagination();
 			this.set('ip', this.get('ipAddress'));
 		}
-	}
+	}, 
+	
+	tableChanged : function() {
+		console.log("table changed.")
+		var boxIds = [];
+		if (this.get('rows')) {
+			var rows = this.get('rows');
+			if (rows > 1) {
+				var table = this.get('table');
+				for (var i = 0; i < table.length; i++) {
+					var row = table[i];
+					for (var j = 0; j < row.length; j++) {
+						var cell = row[j];
+						boxIds.pushObject(cell.id)
+					}
+				}
+			}
+		}
+		var socket = this.get('socketService').socketFor('ws://localhost:8080/vexdashboard/websocket/echoAnnotation');
+		if (socket.readyState() === WebSocket.OPEN) {
+			socket.send('table changed.');
+		} else {
+			Ember.run.later(this, function() {
+				socket.send('table changed. mmmmmm');
+			}, 500);
+		}
+		console.log('1111111');
+	}.observes('table'), 
+	
+
 	
 });

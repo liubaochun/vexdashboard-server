@@ -32,6 +32,14 @@ public class VexboxStatus extends AbstractVexdashboardPersistent<VexBox> impleme
     @XmlAttribute
     private Date timestamp;
 
+    @NotNull
+    @XmlAttribute
+    private String notificationMsg;
+
+    @NotNull
+    @XmlAttribute
+    private String level;
+
     @XmlElement(name = "metrics", namespace = VexDashboardUtil.VEXDASHBOARD_NAMESPACE)
     @JsonProperty("metrics")
     @JsonName("metrics")
@@ -61,6 +69,20 @@ public class VexboxStatus extends AbstractVexdashboardPersistent<VexBox> impleme
 
     public VexboxStatus setMetrics(List<Metric> metrics) {
         this.metrics = metrics;
+        return this;
+    }
+
+    public String getLevel() { return level; }
+
+    public VexboxStatus setLevel(String level) {
+        this.level = level;
+        return this;
+    }
+
+    public String getNotificationMsg() { return this.notificationMsg; }
+
+    public VexboxStatus setNotificationMsg(String notificationMsg) {
+        this.notificationMsg = notificationMsg;
         return this;
     }
 }
