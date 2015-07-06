@@ -76,7 +76,7 @@ export default PaginationBaseController.extend({
 			}, 500);
 		}
 		console.log('1111111');
-	}.observes('table'), 
+	}, 
 	
 
 	
