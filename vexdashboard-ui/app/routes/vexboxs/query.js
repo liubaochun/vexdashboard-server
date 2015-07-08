@@ -1,4 +1,5 @@
 import VexdashboardPagination from '../vexdashboard-pagination';
+import Box from '../../models/box';
 
 export default VexdashboardPagination.extend({
 	elementsPerRow : '3',
@@ -14,6 +15,7 @@ export default VexdashboardPagination.extend({
     },
 	setupController:function(controller, model){
 		var table =[];
+		
 		if (model) {
 			var totalElements = model.get('meta').totalElements;
 			var rows, columns;
@@ -29,10 +31,24 @@ export default VexdashboardPagination.extend({
 			var elements = model.get('content');
 			for (var i = 0; i < rows; i++) {
 				var newRow = [];
+				var cellColor = "light-blue";
+				if ( i%2 === 1) {
+					cellColor = "green";
+				}
 				for (var j = 0; j < columns; j++) {
 					var index = i * columns + j; 
 					if (index < elements.length) {
-						newRow.pushObject(elements[index]);
+						var box = Box.create({
+						      		ipaddress: elements[index].get('ipaddress'),
+									cpu : elements[index].get('cpu'),
+									memory : elements[index].get('memory'),
+									diskSize : elements[index].get('diskSize'),
+									javaVersion : elements[index].get('javaVersion'),
+									applicationType : elements[index].get('applicationType'),
+									applicatonVersion : elements[index].get('applicatonVersion'),
+									displayColor: cellColor
+						    		});
+						newRow.pushObject(box);
 					} else {
 						newRow.pushObject(null);
 					}
@@ -44,6 +60,11 @@ export default VexdashboardPagination.extend({
 			controller.set('rows', 0);
 			controller.set('columns', 0);
 			controller.set('table', null);
+		}
+		if (controller.get('fetchFromBackend') === true) {
+			controller.set('fetchFromBackend', false);
+		} else {
+			controller.set('fetchFromBackend', true);
 		}
 	}
 });
