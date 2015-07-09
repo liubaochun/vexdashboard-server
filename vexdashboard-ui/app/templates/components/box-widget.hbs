@@ -35,7 +35,15 @@
         </div>
         <div class="media-right">
             <a href="#">
-                <img class="media-object" src="images/green.png" >
+				{{#if vexbox.isGreen}}
+                	<img class="media-object" src="images/green.png" >
+				{{/if}}
+				{{#if vexbox.isYellow}}
+                	<img class="media-object" src="images/yellow.png" >
+				{{/if}}
+				{{#if vexbox.isRed}}
+                	<img class="media-object" src="images/red.png" >
+				{{/if}}
             </a>
         </div>
     </div>

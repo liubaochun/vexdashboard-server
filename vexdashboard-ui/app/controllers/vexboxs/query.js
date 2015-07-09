@@ -71,11 +71,27 @@ export default PaginationBaseController.extend({
 							javaVersion : oldBox.get('javaVersion'),
 							applicationType : oldBox.get('applicationType'),
 							applicatonVersion : oldBox.get('applicatonVersion'), 
-							displayColor : oldBox.get('displayColor')
+							displayColor : oldBox.get('displayColor'),
+							isRed : true,
+							isYellow : false,
+							isGreen : false
 						});
 						for (var k = 0; k < boxes.length; k++) {
-							if (newBox.get('ipaddress') === boxes[k].get('ipaddress')) {
-								newBox.set('level', boxes[k].get('level'));
+							if (newBox.get('ipaddress') === boxes[k].get('ipaddress')) {								
+								newBox.set('level', boxes[k].get('level').toLowerCase());
+								if (boxes[k].get('level') === 'RED') {
+									newBox.set('isRed', true);
+									newBox.set('isGreen', false);
+									newBox.set('isYellow', false);
+								} else if(boxes[k].get('level') === 'GREEN') {
+									newBox.set('isGreen', true);
+									newBox.set('isRed', false);
+									newBox.set('isYellow', false);
+								} else if(boxes[k].get('level') === 'YELLOW') {
+									newBox.set('isYellow', true);
+									newBox.set('isGreen', false);
+									newBox.set('isRed', false);
+								}
 								newBox.set('notificationMsg', boxes[k].get('notificationMsg'));
 								newBox.set('cpuValue', boxes[k].get('cpuValue'));
 								newBox.set('memoryValue', boxes[k].get('memoryValue'));								

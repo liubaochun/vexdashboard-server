@@ -66,5 +66,11 @@ export default VexdashboardPagination.extend({
 		} else {
 			controller.set('fetchFromBackend', true);
 		}
-	}
+	}, 
+	
+	actions: {
+	    displayModal: function() {
+	      this.send('showModal', 'settings-modal', 'xxxxxx');
+	    }
+	  }
 });
