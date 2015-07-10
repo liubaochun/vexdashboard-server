@@ -11,7 +11,7 @@ export default Ember.Controller.extend({
           pointStrokeColor: "#c1c7d1",
           pointHighlightFill: "#fff",
           pointHighlightStroke: "rgba(220,220,220,1)",
-          data: [65, 59, 80, 81, 56, 55, 40]
+          data: [65, 59, 80, 81, 56, 55, 40, 33, 62, 89, 20, 65, 22]
         }
       ]
     },	

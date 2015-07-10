@@ -1,6 +1,7 @@
 package com.thistech.vexdashboard.repository;
 
 import com.thistech.vexdashboard.common.model.VexboxStatus;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
@@ -34,5 +35,12 @@ public class VexboxStatusRepository extends AbstractVexdashboardRepository<Vexbo
         }
 
         return getMongoTemplate().find(Query.query(criteria), getEntityClass());
+    }
+
+    public List<VexboxStatus> findStatusByIpaddress(final String ipaddress, Date startDate, Date endDate) {
+        final Criteria criteria = createCriteria();
+        criteria.andOperator(Criteria.where("ipaddress").is(ipaddress), Criteria.where("timestamp").gte(startDate), Criteria.where("timestamp").lte(endDate));
+        Query query= Query.query(criteria).with(new Sort(Sort.Direction.ASC, "timestamp"));
+        return getMongoTemplate().find(query, getEntityClass());
     }
 }

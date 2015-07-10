@@ -1,5 +1,6 @@
 import VexdashboardPagination from '../vexdashboard-pagination';
 import Box from '../../models/box';
+import Boxprofile from '../../models/boxprofile';
 
 export default VexdashboardPagination.extend({
 	elementsPerRow : '3',
@@ -39,7 +40,8 @@ export default VexdashboardPagination.extend({
 					var index = i * columns + j; 
 					if (index < elements.length) {
 						var box = Box.create({
-						      		ipaddress: elements[index].get('ipaddress'),
+									id : elements[index].get('id'),
+						      		ipaddress : elements[index].get('ipaddress'),
 									cpu : elements[index].get('cpu'),
 									memory : elements[index].get('memory'),
 									diskSize : elements[index].get('diskSize'),
@@ -69,8 +71,43 @@ export default VexdashboardPagination.extend({
 	}, 
 	
 	actions: {
-	    displayModal: function() {
-	      this.send('showModal', 'settings-modal', 'xxxxxx');
+	    displayModal: function(id) {
+			var boxProfile = Boxprofile.create({});
+			var _this = this;
+			if (id) {
+				Ember.$.ajax({
+					url : 'http://localhost:8080/vexdashboard/core/boxstatus/ip/' + id,
+					type : 'GET',
+					accepts: 'application/json',
+					success : function(data) {	
+						boxProfile.set('ipAddress', data.vexBox.ipaddress);
+						boxProfile.set('cpu', data.vexBox.cpu);
+						boxProfile.set('memory', data.vexBox.memory);
+						boxProfile.set('diskSize', data.vexBox.diskSize);
+						boxProfile.set('javaVersion', data.vexBox.javaVersion);
+						boxProfile.set('applicationType', data.vexBox.applicationType);
+						boxProfile.set('applicatonVersion', data.vexBox.applicatonVersion);
+						var newTimestamps = [];
+						for (var i = 0; i < data.timestamps.length; i++) {
+							if (i % 40 === 0 || i === data.timestamps.length - 1) {
+								var tmpDate = new Date(data.timestamps[i]);
+								var tmpDateStr = tmpDate.getHours() + ":" + tmpDate.getMinutes() + ":" + tmpDate.getSeconds();
+								newTimestamps.push(tmpDateStr);
+							} else {
+								newTimestamps.push('');
+							}
+						}
+						boxProfile.set('timestamps', newTimestamps);
+						boxProfile.set('cpuValues', data.cpuValues);
+						boxProfile.set('memValues', data.memValues);
+						_this.send('showModal', 'settings-modal', boxProfile);			
+					}, 
+					error : function() {
+						console.log('FAILED TO GET BOX PROFILE!!');
+					}
+				});
+			}
+			
 	    }
 	  }
 });

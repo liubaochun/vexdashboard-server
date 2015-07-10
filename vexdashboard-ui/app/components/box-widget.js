@@ -73,7 +73,8 @@ export default Ember.Component.extend({
 
     actions: {
         toggleCollapse: function(){
-          this.sendAction('showModal');
+		  	var vexbox = this.get('vexbox');
+			this.sendAction('showModal', vexbox.get('id'));
             /*if(!this.get('collapsable')){return;}
             var box = this.$();
             this.toggleProperty('isCollapsed');

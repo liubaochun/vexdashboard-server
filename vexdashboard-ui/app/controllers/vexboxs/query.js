@@ -64,6 +64,7 @@ export default PaginationBaseController.extend({
 					if (oldTable[m][n]) {
 						var oldBox = oldTable[m][n];
 						var newBox = Box.create({
+							id : oldBox.get('id'),
 							ipaddress : oldBox.get('ipaddress'),
 							cpu : oldBox.get('cpu'),
 							memory : oldBox.get('memory'),

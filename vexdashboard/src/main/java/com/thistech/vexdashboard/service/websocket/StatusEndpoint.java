@@ -66,6 +66,7 @@ public class StatusEndpoint {
 
     @OnError
     public void onError(Session session, Throwable t) {
+        statusUpdateTimer.removeClients(session.getId());
         t.printStackTrace();
     }
 }

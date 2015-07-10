@@ -1,6 +1,6 @@
 import Ember from "ember";
 
-var Box = Ember.Object.extend({
+export default Ember.Object.extend({
 	id: null,
   	ipaddress : null,
 	cpu : null,
@@ -9,11 +9,7 @@ var Box = Ember.Object.extend({
 	javaVersion : null,
 	applicationType : null,
 	applicatonVersion : null,
-	level: null,
-	notificationMsg: null,
-	cpuValue: null, 
-	memoryValue: null, 
-	displayColor: "light-blue"
+	timestamps : null, 
+	cpuValues : null, 
+	memoryValues : null  
 });
-
-export default Box;
