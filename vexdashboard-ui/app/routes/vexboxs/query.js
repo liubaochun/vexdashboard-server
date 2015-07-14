@@ -15,6 +15,7 @@ export default VexdashboardPagination.extend({
 		ip: {refreshModel: true},
     },
 	setupController:function(controller, model){
+		this._super(controller, model);
 		var table =[];
 		
 		if (model) {

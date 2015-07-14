@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import RouteHistoryMixin from '../mixins/route-history';
-import PaginationShuttle from '../models/pagination-shuttle';
+import RouteHistoryMixin from '../mixins/route-history';	
+import Pagination from '../models/pagination';
 
 /**
   * RouteHistory Mixin will be do.
@@ -15,7 +15,8 @@ export default Ember.Route.extend({
 	        pageIndex: { refreshModel: true },
 	        sortBy: { refreshModel: true },
 	        desc: { refreshModel: true },
-	        keyWord: { refreshModel: true }, 
+	        keyWord: { refreshModel: true },
+	 		pageSize: { refreshModel: true },
 			o: {refreshModel: true}
 	    },
 	    beforeModel:function(transition, queryParams){
@@ -30,11 +31,19 @@ export default Ember.Route.extend({
 	        return this.store.find(this.get('type'), params);
 	    },
 	    setupController:function(controller, model){
+			//Go to the previous page if the current page has no data. This can happen after
+			//removing all records in the last page, but the pageIndex is not auto-decreased.
+			if(Ember.isArray(model) && Ember.isEmpty(model) && controller.get('pageIndex') > 0){
+				controller.set('pageIndex', controller.get('pageIndex') - 1);
+				this.transitionTo(this.get('routeName'));
+				return;
+			}
+			
 	        if(model && model.type){
 	            var newPagination = this.store.metadataFor(model.type.typeKey);
 	            var pagination = controller.get('pagination');
 	            if(!pagination){
-	                pagination = PaginationShuttle.create({});
+	                pagination = Pagination.create({});
 	                controller.set('pagination', pagination);
 	            }
 	            for(var key in newPagination){
@@ -43,6 +52,7 @@ export default Ember.Route.extend({
 	            //Ember.set(pagination, 'keyWord', controller.get('keyWord'));
 	            Ember.set(pagination, 'isLoading', false);
 	            controller.updateCurrentSortingKey(controller.get('sortBy'), controller.get('desc'));
+				controller.set('pagination', pagination);
 	        }
 	        this._super(controller, model);
 	    }

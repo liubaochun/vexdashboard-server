@@ -1,32 +1,34 @@
-<div class="display:inline">
-    {{#if showSearchBox}}
-        {{input type="text" value=pagination.keyWord placeholder="Type keyword to search" class="large-component-form-control"}}
-        <button class="btn btn-default" name="goSearch" {{action "search"}} id="id24">
-            {{#if pagination.isLoading}}
-                <div class="spinner" style="background-size: 18px 18px; height: 18px; width: 18px; float: left"></div> &nbsp;Loading...
-            {{else}}
-                Go <i class="fa fa-arrow-right"></i>
-            {{/if}}
-        </button>
-    {{/if}}
-    {{#if showDeselectAll}}
-        <button class="btn" name="deselectAll" {{action "deselectAll"}} id="id25">Deselect All</button>
-    {{/if}}
-    {{#if showPagesBox}}
-        <div class="pull-right" style="padding-top: 3px">
-            <ul class="pagination">
-                <li><span class="pull-left" style="padding: 1px 15px">{{startCount}} - {{endCount}} of {{pagination.totalElements}}</span></li>
-                {{#if pagination.hasPreviousPage}}
-                    <li><a><span {{ action "updatePageIndex" -1}} style="padding: 1px 8px">&laquo;</span></a></li>
-                {{else}}
-                    <li class="disabled"><a><span style="padding: 1px 8px">&laquo;</span></a></li>
-                {{/if}}
-                {{#if pagination.hasNextPage}}
-                    <li><a><span {{ action "updatePageIndex" 1}} style="padding: 1px 8px">&raquo;</span></a></li>
-                {{else}}
-                    <li class="disabled"><a><span style="padding: 1px 8px">&raquo;</span></a></li>
-                {{/if}}
-            </ul>
-        </div>
-    {{/if}}
+<div class="row">
+	<div class="col-md-9">
+	<nav class="pull-right">
+	  <ul class="pagination">
+	    <li>
+	      <a>
+			{{#if hasPreviousPage}}
+	        	<span{{action "updatePageIndex" previousPageIndex}}>&laquo;</span>
+			{{else}}
+				<span>&laquo;</span>
+			{{/if}}
+	      </a>
+	    </li>
+		{{#each indexObject in indexArray }}
+			{{#if indexObject.isCurrent}}
+				<li class="active"><a><span {{ action "updatePageIndex" indexObject.index}}>{{indexObject.index}}</span></a></li>
+			{{else}}
+				<li><a><span {{ action "updatePageIndex" indexObject.index}}>{{indexObject.index}}</span></a></li>
+			{{/if}}
+		{{else}}
+		{{/each}}
+	    <li>
+	      <a>
+			{{#if hasNextPage}}
+	        	<span {{action "updatePageIndex" nextPageIndex}}>&raquo;</span>
+			{{else}}
+				<span>&raquo;</span>
+			{{/if}}
+	      </a>
+	    </li>
+	  </ul>
+	</nav>
+	</div>
 </div>

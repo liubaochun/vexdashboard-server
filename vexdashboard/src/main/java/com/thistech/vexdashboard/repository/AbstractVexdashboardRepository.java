@@ -125,9 +125,9 @@ public abstract class AbstractVexdashboardRepository<T extends VexdashboardPersi
 
     protected Page<T> findPage(Criteria criteria, String sortProperty, Boolean isDesc, int pageIndex, int pageSize) {
         Page<T> page = super.findPage(criteria, sortProperty, isDesc, pageIndex, pageSize);
-        if (pageIndex > 0 && pageIndex <= page.getTotalPages()) {
-            page = super.findPage(criteria, sortProperty, isDesc, page.getTotalPages() - 1, pageSize);
-        }
+        //if (pageIndex > 0 && pageIndex <= page.getTotalPages()) {
+        //    page = super.findPage(criteria, sortProperty, isDesc, page.getTotalPages() - 1, pageSize);
+        //}
         return page;
     }
 

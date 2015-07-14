@@ -52,10 +52,10 @@ public class VexBoxService extends AbstractCrudService<VexBox>{
     public Page<VexBox> find(@QueryParam("o") final String organizationId,
                              @QueryParam("currentApplicationType") final String currentApplicationType,
                              @QueryParam("ip") final String ipAddress,
-                             @QueryParam("s") @DefaultValue("applicationType") final String sortProperty,
+                             @QueryParam("sortBy") @DefaultValue("applicationType") final String sortProperty,
                              @QueryParam("d") @DefaultValue("false") final boolean isDesc,
-                             @QueryParam("i") @DefaultValue("0") final int pageIndex,
-                             @QueryParam("n") @DefaultValue("20") final int pageSize) {
+                             @QueryParam("pageIndex") @DefaultValue("0") final int pageIndex,
+                             @QueryParam("pageSize") @DefaultValue("20") final int pageSize) {
         Page<VexBox> page = null;
         page = vexboxRepository.findByApptypeAndIp(currentApplicationType, ipAddress, sortProperty, isDesc, pageIndex, pageSize);
         return page;

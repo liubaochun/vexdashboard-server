@@ -5,10 +5,14 @@ export default PaginationBaseController.extend({
 	socketService: Ember.inject.service('websockets'),
 	
 	queryParams:['o', 'pageIndex', 'pageSize', 'sortBy', 'desc', 'totalElements', "currentApplicationType", "ip"],
+	sortBy : '',
+    desc : false,
+
 	applicationTypes : [{displayLabel: "Core Vex", type: "COREVEX"}, 
 						{displayLabel: "Vex Director", type: "DIRECTOR"},
 						{displayLabel: "Vex Frontend", type: "FRONTEND"}
 						],
+						
 	currentApplicationType: null,
 	ip: "",
 	ipAddress: "",
@@ -98,8 +102,8 @@ export default PaginationBaseController.extend({
 								newBox.set('memoryValue', boxes[k].get('memoryValue'));								
 							}
 						}
-					}
-					newRow.pushObject(newBox);								
+						newRow.pushObject(newBox);
+					}	
 				}
 				newTable.pushObject(newRow);
 			}
@@ -110,8 +114,10 @@ export default PaginationBaseController.extend({
 	
 	actions: {
 		ipChanged : function() {
-			this.resetPagination();
 			this.set('ip', this.get('ipAddress'));
+		}, 
+		updatePageIndex : function(pageIndex) {
+			this.set('pageIndex', pageIndex);
 		}
 	}, 
 	
@@ -160,7 +166,6 @@ export default PaginationBaseController.extend({
 				//socket.send('{\"ipaddresses\": [\"192.168.204.1\", \"192.168.204.101\"]}');
 			}, 1000);
 		}
-		console.log('1111111');
 	}.observes('fetchFromBackend'), 
 	
 
