@@ -4,7 +4,7 @@ import Box from '../../models/box';
 export default PaginationBaseController.extend({
 	socketService: Ember.inject.service('websockets'),
 	
-	queryParams:['o', 'pageIndex', 'pageSize', 'sortBy', 'desc', 'totalElements', "currentApplicationType", "ip"],
+	queryParams:['o', 'pageIndex', 'sortBy', 'desc', 'currentApplicationType', 'ip', 'pageSize'],
 	sortBy : '',
     desc : false,
 
@@ -18,6 +18,7 @@ export default PaginationBaseController.extend({
 	ipAddress: "",
 	socket: null,
 	fetchFromBackend : false,
+	pageSize : 6, 
 	
 	init: function() {
 	    this._super.apply(this, arguments);
@@ -167,7 +168,5 @@ export default PaginationBaseController.extend({
 			}, 1000);
 		}
 	}.observes('fetchFromBackend'), 
-	
-
 	
 });

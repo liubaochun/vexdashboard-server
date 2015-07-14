@@ -13,6 +13,7 @@ export default VexdashboardPagination.extend({
 		o: {refreshModel: true},
 		currentApplicationType: {refreshModel: true},
 		ip: {refreshModel: true},
+		pageSize : {refreshModel: true},
     },
 	setupController:function(controller, model){
 		this._super(controller, model);

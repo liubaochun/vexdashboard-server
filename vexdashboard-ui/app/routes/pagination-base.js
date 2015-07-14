@@ -41,16 +41,18 @@ export default Ember.Route.extend({
 			
 	        if(model && model.type){
 	            var newPagination = this.store.metadataFor(model.type.typeKey);
-	            var pagination = controller.get('pagination');
-	            if(!pagination){
-	                pagination = Pagination.create({});
-	                controller.set('pagination', pagination);
-	            }
-	            for(var key in newPagination){
-	                Ember.set(pagination, key, newPagination[key]);
-	            }
-	            //Ember.set(pagination, 'keyWord', controller.get('keyWord'));
-	            Ember.set(pagination, 'isLoading', false);
+				
+	            //var pagination = controller.get('pagination');
+	            //if(!pagination){
+	            //    pagination = Pagination.create({});
+	            //    controller.set('pagination', pagination);
+	            //}
+				var pagination = Pagination.create({});
+				if (newPagination) {
+					for(var key in newPagination){
+		                Ember.set(pagination, key, newPagination[key]);
+		            }
+				}
 	            controller.updateCurrentSortingKey(controller.get('sortBy'), controller.get('desc'));
 				controller.set('pagination', pagination);
 	        }

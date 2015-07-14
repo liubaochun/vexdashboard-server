@@ -27,7 +27,7 @@ export default Ember.Component.extend({
 	
 	updatePaginationView : function() {
 		this.updatePagination();
-	}.observes('pagination.pageIndex'),
+	}.observes('pagination.totalElements'),
 	
 	updatePagination : function() {
 		var paginationCurrent = this.get('pagination');
