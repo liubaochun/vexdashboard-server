@@ -18,7 +18,7 @@ export default PaginationBaseController.extend({
 	ipAddress: "",
 	socket: null,
 	fetchFromBackend : false,
-	pageSize : 6, 
+	pageSize : 12, 
 	
 	init: function() {
 	    this._super.apply(this, arguments);

@@ -15,6 +15,10 @@ export default Ember.Controller.extend({
         }
       ]
     },	
+    chartOption: {
+		pointDot : false,
+		showTooltips: false
+	},
   actions: {
     save: function() {
       // save to server

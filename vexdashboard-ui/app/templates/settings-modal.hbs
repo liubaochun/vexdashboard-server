@@ -19,13 +19,13 @@
         <div class="form-group">
 	        <label class="col-sm-3 control-label">CPU usage in an hour:</label>
 			<div class="row">
-				{{ember-chart type='Line' data=model.cpuCharData width=450 height=200 legend=true}}
+				{{ember-chart type='Line' data=model.cpuCharData width=450 height=200 legend=true options=chartOption}}
 			</div>
         </div>
 		<div class="form-group">
 	        <label class="col-sm-3 control-label">Memory usage in an hour:</label>
 			<div class="row">
-				{{ember-chart type='Line' data=model.memCharData width=450 height=200 legend=true}}
+				{{ember-chart type='Line' data=model.memCharData width=450 height=200 legend=true options=chartOption}}
 			</div>
         </div>
 		
