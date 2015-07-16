@@ -4,7 +4,7 @@ module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'vexdashboard',
     environment: environment,
-    baseURL: '/',
+    baseURL: '/vexdashboard-ui/',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
